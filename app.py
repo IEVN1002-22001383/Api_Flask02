@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+import math
 
-app = Flask(_name_)
+app = Flask(__name__)
 """ desde donde arrancará mi proyecto es lo que indica el ('/') """
 @app.route('/index')
 def index():
@@ -8,12 +9,39 @@ def index():
     listado = ['Python', 'Flask', 'Jinja2', 'HTML', 'CSS']
     return render_template('index.html', titulo = titulo, listado = listado)
 
-@app.route('/calculos')
-def calculos():
-    return render_template('calculos.html')
+@app.route('/calculos', methods=['GET', 'POST'])
+def about():
 
-@app.route('/distancia')
+    if request.method == 'POST':
+        numero1 = request.form['numero1']
+        numero2 = request.form['numero2']
+        opcin = request.form['operacion']
+        if opcin == 'suma':
+            res = int(numero1) + int(numero2)
+            simbolo = '+'
+        if opcin == 'resta':
+            res = int(numero1) - int(numero2)
+            simbolo = '-'
+        if opcin == 'multiplicacion':
+            res = int(numero1) * int(numero2)
+            simbolo = '*'
+        if opcin == 'division':
+            res = int(numero1) / int(numero2)
+            simbolo = '/'
+        return render_template('calculos.html', res = res, simbolo = simbolo,
+                                    numero1=numero1, numero2=numero2)
+    return render_template('calculos.html')
+    
+
+@app.route('/distancia', methods=['GET', 'POST'])
 def distancia():
+    if request.method == 'POST':
+        x1 = request.form['x1']
+        y1 = request.form['y1']
+        x2 = request.form['x2']
+        y2 = request.form['y2']
+        distancia = math.sqrt((int(x2) - int(x1))**2 + (int(y2) - int(y1))**2)
+        return render_template('distancia.html', distancia = distancia)
     return render_template('distancia.html')
 
 """ variable tipo string llamada user """
@@ -63,5 +91,5 @@ def func4():
 
 
 """ crear sistema de arranque del proyecto """
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
