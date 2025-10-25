@@ -1,0 +1,21 @@
+{% extends "layout.html"%}
+{%import "_macros.html" as datos_macro%}
+    {%block container%}
+    <h1>Operaciones básicas</h1>
+
+    <form action="" method="post">
+        <!--  -->
+        {{datos_macro.datos('Numero 1','Ingrese el número 1')}}
+        {{datos_macro.datos('Numero 2','Ingrese el número 2', 'password')}}
+        <div class="mb-3">
+            <label for="operacion" class="form-label">Operacion</label>
+            <select class="form-select" name="operacion" id="operacion">
+                <option value="Suma">Suma</option>
+                <option value="Resta">Resta</option>
+                <option value="Multiplicacion">Multiplicación</option>
+                <option value="División">División</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+{%endblock%}

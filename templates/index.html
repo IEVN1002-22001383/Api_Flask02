@@ -1,0 +1,17 @@
+{% extends "layout.html"%}
+    {%block container%}
+    
+    <div class="text-center">
+        <h1 class="mt-3">Hola mundo</h1>
+        <h4>{{titulo}}</h4>
+    </div>
+        {% for elemento in listado %} 
+            <p class="mt-3">{{elemento}}</p>
+        {% endfor %}
+
+        {% if usuario %} 
+            <p class="mt-3">Usuario {{titulo}}</p>
+        {% else %}
+            <h5>No hay usuario</h5>
+        {% endif %}    
+{%endblock%}
