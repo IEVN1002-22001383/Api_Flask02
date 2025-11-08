@@ -1,0 +1,20 @@
+.fondo-Container{
+    background-color: rgb(132, 175, 205);
+    border-style: dashed !important;
+}
+.fondo-Container2{
+    background-color: rgb(141, 141, 141);
+    border-style: dashed !important;
+}
+
+legend{
+    float: none;
+    padding: 10px;
+    font-size: larger !important;
+
+}
+
+table{
+    background-color: white !important;
+}
+

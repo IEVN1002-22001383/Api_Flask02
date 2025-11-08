@@ -1,0 +1,97 @@
+{% extends "layout.html"%}
+{%import "_macros.html" as macro%}
+    {%block container%}
+    
+    <form action="" method="post" novalidate>
+        <div  class="container fondo-Container p-5 mt-5 border border-2 border-dark">
+            <div class="row ">
+                <div class="col-3">
+                    {{ macro.camposTexto(form.nombre)}}
+                </div>
+                <div class="col-3">
+                    {{ macro.camposTexto(form.direccion)}}
+                </div>
+                <div class="col-3">
+                    {{ macro.camposTexto(form.telefono)}}
+                </div>
+            </div>
+
+            <div class="row mt-5">
+                <div class="col-3">
+                    <fieldset class="border-1 border border-white">
+                        <legend class="w-50">Tamaño Pizza</legend>
+                            <div class="m-3">
+                                {{ macro.camposRadio(form.tamanno)}}
+                            </div>
+                    </fieldset>
+                </div>
+                <div class="col-3">
+                    <fieldset class="border-1 border border-white">
+                        <legend class="w-50">Ingredientes</legend>
+                            <div class="m-3">
+                                {% for field in [form.jamon, form.pinna, form.champinnones] %}
+                                    <div class="row">
+                                        <div class="col-1">{{ field() }}</div>
+                                        <div class="col-7">{{ field.label }}</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-6">
+                    {{ macro.camposTexto(form.numPizzas)}}
+
+                    <div>
+                        {{ form.agregar()}}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="container fondo-Container p-5 mt-2 border border-2 border-dark">
+            <div class="row">
+                <div class="col-6">
+                    <div>
+                        <table class="table table-hover">
+                            <tr>
+                                <th></th>
+                                <th>Tamaño</th>
+                                <th>Ingredientes</th>
+                                <th>Num. Pizzas</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            {{ macro.camposTabla(pedidosDelDia)}}
+
+                        </table>
+                    </div>
+
+                    {{ form.quitar() }}
+                    {{ form.terminar() }}
+                </div>
+
+                <div class="col-6">
+                    <div class="fondo-Container2 p-5 mt-2 border border-2 border-dark">
+                        <fieldset class="border-1 border border-white">
+                            <legend class="w-50">Ventas del dia</legend>
+                                <div class="m-3">
+                                    {{ macro.ventasDelDia(ventasDelDia)}}
+                                    <div>Ventas totales del dia: ${{totalVentasDelDia}}</div>
+                                </div>
+                        </fieldset>
+                        <div>
+                            {{form.totalVentas}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+    </form>
+
+
+{%endblock%}

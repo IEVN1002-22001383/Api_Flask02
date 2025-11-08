@@ -1,0 +1,89 @@
+{% macro datos(name, placeholder, type='text') %}
+<!-- si tengo que escribir muchas veces esto, como 5 inputs, 
+ya funciona con solo escribirla una vez -->
+ <div class="mb-3">
+    <label for="{name}" class="form-label">{{name}}</label>
+    <input type="{{type}}" class="form-control" id="{{name}}" 
+    name="{{name}}" placeholder="{{placeholder}}">
+</div>
+{% endmacro %}
+
+{%macro camposNuevos(field)%}
+<td>{{field.label}}</td>
+<dd>{{field(**kwargs) | safe}}</dd>
+
+{%if field.errors%}
+<ul>
+    {%for error in field.errors%}
+    <li style="color: red">{{error}}</li>
+    {%endfor%}
+</ul>
+{%endif%}
+
+{%endmacro%}
+
+{%macro camposTexto(field)%}
+<div class="row">
+    <div class="col-3">
+        <td>{{field.label}}</td>
+    </div>
+    <div class="col-3">
+        <dd>{{field(**kwargs) | safe}}</dd>
+    </div>
+</div>
+
+
+
+{%if field.errors%}
+<ul>
+    {%for error in field.errors%}
+    <li style="color: red">{{error}}</li>
+    {%endfor%}
+</ul>
+{%endif%}
+
+{%endmacro%}
+
+
+{%macro camposBool(field)%}
+<div class="row">
+    <div class="col">
+        <label>{{field.label}}</label>
+    </div>
+    <div class="col">
+        <div>{{field(**kwargs) | safe}}</div>
+    </div>
+
+
+</div>
+
+{%endmacro%}
+
+{%macro camposRadio(field)%}
+    {% for subfield in field %}
+    <div class="row">    
+        <div class="col-1">{{ subfield }}</div>
+        <div class="col-7">{{ subfield.label }}</div>
+    </div>
+    {% endfor %}
+{%endmacro%}
+
+{%macro camposTabla(field)%}
+        {% for pedido in field %}
+        <tr>
+            <td><input type="checkbox" name="borrarPedidos" value="{{ pedido.fechaDeCompra }}"></td>
+            <td>{{pedido.tamaño}}</td>
+            <td>{{pedido.ingredientes | join (", ")}}</td>
+            <td>{{pedido.numeroDePizzas}}</td>
+            <td>{{pedido.subTotal}}</td>
+        </tr>
+        {% endfor %}
+{%endmacro%}
+
+{%macro ventasDelDia(field)%}
+        {% for pedido in field %}
+        <div class="row">
+            <p>{{pedido.nombre}} total ${{pedido.total}}</p>
+        </div>
+        {% endfor %}
+{%endmacro%}
